@@ -1,0 +1,57 @@
+#!/bin/sh
+
+
+# GOROOT
+if [ -f /bin/realpath -o /usr/bin/realpath ]
+then
+    pp1=$(realpath $0)
+elif [ -f /bin/readlink -o /usr/bin/readlink ]
+then
+    pp1=$(readlink -m $0)
+else
+    echo
+    echo
+    echo 'no realpath / readlink exist. exit.'
+    echo
+    exit
+fi
+
+pp2=$(dirname  ${pp1})
+pp3=$(basename ${pp1})
+pp4=${pp2}/noW_bin_exe
+
+pp9=$(basename ${0})
+
+if [ -f /bin/realpath -o /usr/bin/realpath ]
+then
+    pp5=$(realpath  ${pp4})
+elif [ -f /bin/readlink -o /usr/bin/readlink ]
+then
+    pp5=$(readlink -m  ${pp4})
+fi
+
+if [ ! -f ${pp5} ]
+then
+    echo
+    echo
+    echo ' no <noW_bin_exe> exist. exit. '
+    echo
+    exit
+fi
+
+xx1=$(dirname  ${pp5})
+xx2=$(basename ${pp5})
+
+if [ -f /bin/realpath -o /usr/bin/realpath ]
+then
+    xx4=$(realpath  ${xx1}/../ )
+elif [ -f /bin/readlink -o /usr/bin/readlink ]
+then
+    xx4=$(readlink -m  ${xx1}/../ )
+fi
+
+[ 1 = 1 ] || echo "export GOROOT=${xx4}"
+                   export GOROOT=${xx4}
+
+[ 1 = 1 ] || echo "${xx1}/${pp9}   $*"
+                   ${xx1}/${pp9}   $*
